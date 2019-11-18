@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MvvM</string>
+    <string name="base_version">1.0</string>
+    <string name="edit_num">intPut num</string>
+    <string name="edit_pass">intPut password</string>
+    <string name="login">login</string>
+</resources>
