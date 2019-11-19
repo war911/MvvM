@@ -3,11 +3,12 @@ package com.example.mvvm;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.example.mvvm.databinding.ActivityMainBinding;
 
 /**
  * @author war
@@ -16,19 +17,22 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     MainViewModel mMainViewModel;
-    private Button btn;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        btn = findViewById(R.id.buttonLogin);
-        Log.d(TAG, "onCreate: ---- > ");
-//        if (savedInstanceState != null) {
-//            Log.i(TAG, "onCreate: 00 >"+savedInstanceState.get("KEY"));
-//        }
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
         mMainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        btn.setText(mMainViewModel.number+"");
+
+        binding.setData(mMainViewModel);
+        binding.setLifecycleOwner(this);
+
+        if (savedInstanceState != null) {
+            Log.i(TAG, "onCreate: --- > " + savedInstanceState.getString("KEY"));
+        }
 
     }
 
@@ -45,9 +49,4 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onDestroy: ---- > ");
     }
 
-    public void onclick(View view) {
-        mMainViewModel.number++;
-        btn.setText(mMainViewModel.number+"");
-
-    }
 }
