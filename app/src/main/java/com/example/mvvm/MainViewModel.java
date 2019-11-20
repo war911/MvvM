@@ -7,21 +7,48 @@ import androidx.lifecycle.ViewModel;
  * @author war
  */
 public class MainViewModel extends ViewModel {
-    private MutableLiveData<Integer> LikedNumber;
+    private MutableLiveData<Integer> aTeamScoreA;
+    private MutableLiveData<Integer> bTeamScoreB;
+    private int aBack, bBack;
 
-    public MutableLiveData<Integer> getLikedNumber() {
-        if (LikedNumber == null) {
-            LikedNumber = new MutableLiveData<>();
-            LikedNumber.setValue(0);
+    public MutableLiveData<Integer> getaTeamScoreA() {
+        if (aTeamScoreA == null) {
+            aTeamScoreA = new MutableLiveData<>();
+            aTeamScoreA.setValue(0);
         }
-        return LikedNumber;
+        return aTeamScoreA;
     }
 
-    public void addLikedNumber(int number) {
-        LikedNumber.setValue(LikedNumber.getValue() + number);
+    public MutableLiveData<Integer> getbTeamScoreB() {
+        if (bTeamScoreB == null) {
+            bTeamScoreB = new MutableLiveData<>();
+            bTeamScoreB.setValue(0);
+        }
+        return bTeamScoreB;
     }
 
-    public void cutLikedNumber(int number) {
-        LikedNumber.setValue(LikedNumber.getValue() - number);
+    public void aTeamAdd(int p) {
+        aBack = aTeamScoreA.getValue();
+        bBack = bTeamScoreB.getValue();
+        aTeamScoreA.setValue(aBack + p);
+    }
+
+    public void bTeamAdd(int p) {
+        aBack = aTeamScoreA.getValue();
+        bBack = bTeamScoreB.getValue();
+        bTeamScoreB.setValue(bTeamScoreB.getValue() + p);
+    }
+
+    public void reset() {
+        aBack = aTeamScoreA.getValue();
+        bBack = bTeamScoreB.getValue();
+        aTeamScoreA.setValue(0);
+        bTeamScoreB.setValue(0);
+    }
+
+    public void unDo(){
+        aTeamScoreA.setValue(aBack);
+        bTeamScoreB.setValue(bBack);
     }
 }
+

@@ -5,4 +5,12 @@
     <string name="edit_num">输入账号</string>
     <string name="edit_pass">输入密码</string>
     <string name="todo" translatable="false">TODO</string>
+    <string name="scroA">0</string>
+    <string name="scoreB">0</string>
+    <string name="teamB">TeamB</string>
+    <string name="teamA">TeamA</string>
+    <string name="add1">+1</string>
+    <string name="add2">+2</string>
+    <string name="add3">+3</string>
+    <string name="btnTextLand">40sp</string>
 </resources>

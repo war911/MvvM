@@ -5,4 +5,6 @@
     <string name="edit_num">intPut num</string>
     <string name="edit_pass">intPut password</string>
     <string name="login">login</string>
+    <string name="teamA">TeamA</string>
+    <string name="teamB">TeamB</string>
 </resources>
