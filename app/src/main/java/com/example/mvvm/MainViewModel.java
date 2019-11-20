@@ -1,54 +1,60 @@
 package com.example.mvvm;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 /**
  * @author war
  */
 public class MainViewModel extends ViewModel {
-    private MutableLiveData<Integer> aTeamScoreA;
-    private MutableLiveData<Integer> bTeamScoreB;
     private int aBack, bBack;
 
-    public MutableLiveData<Integer> getaTeamScoreA() {
-        if (aTeamScoreA == null) {
-            aTeamScoreA = new MutableLiveData<>();
-            aTeamScoreA.setValue(0);
-        }
-        return aTeamScoreA;
+    private SavedStateHandle mSavedStateHandle;
+
+    public MainViewModel(SavedStateHandle handle) {
+        this.mSavedStateHandle = handle;
     }
 
-    public MutableLiveData<Integer> getbTeamScoreB() {
-        if (bTeamScoreB == null) {
-            bTeamScoreB = new MutableLiveData<>();
-            bTeamScoreB.setValue(0);
+
+    public MutableLiveData<Integer> getATeamScoreA() {
+        if (!mSavedStateHandle.contains(MainActivity.KEY_A)) {
+            mSavedStateHandle.set(MainActivity.KEY_A, 0);
+            mSavedStateHandle.set(MainActivity.KEY_B, 0);
         }
-        return bTeamScoreB;
+        return mSavedStateHandle.getLiveData(MainActivity.KEY_A);
+    }
+
+    public MutableLiveData<Integer> getBTeamScoreB() {
+        if (!mSavedStateHandle.contains(MainActivity.KEY_B)) {
+            mSavedStateHandle.set(MainActivity.KEY_A, 0);
+            mSavedStateHandle.set(MainActivity.KEY_B, 0);
+        }
+        return mSavedStateHandle.getLiveData(MainActivity.KEY_B);
     }
 
     public void aTeamAdd(int p) {
-        aBack = aTeamScoreA.getValue();
-        bBack = bTeamScoreB.getValue();
-        aTeamScoreA.setValue(aBack + p);
+        aBack = getATeamScoreA().getValue();
+        bBack = getBTeamScoreB().getValue();
+        getATeamScoreA().setValue(aBack + p);
     }
 
     public void bTeamAdd(int p) {
-        aBack = aTeamScoreA.getValue();
-        bBack = bTeamScoreB.getValue();
-        bTeamScoreB.setValue(bTeamScoreB.getValue() + p);
+        aBack = getATeamScoreA().getValue();
+        bBack = getBTeamScoreB().getValue();
+        getBTeamScoreB().setValue(getBTeamScoreB().getValue() + p);
     }
 
     public void reset() {
-        aBack = aTeamScoreA.getValue();
-        bBack = bTeamScoreB.getValue();
-        aTeamScoreA.setValue(0);
-        bTeamScoreB.setValue(0);
+        aBack = getATeamScoreA().getValue();
+        bBack = getBTeamScoreB().getValue();
+        getATeamScoreA().setValue(0);
+        getBTeamScoreB().setValue(0);
     }
 
-    public void unDo(){
-        aTeamScoreA.setValue(aBack);
-        bTeamScoreB.setValue(bBack);
+    public void unDo() {
+        getATeamScoreA().setValue(aBack);
+        getBTeamScoreB().setValue(bBack);
     }
 }
 
